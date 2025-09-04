@@ -12,7 +12,7 @@ jobs:
   pii-scan:
     runs-on: windows-latest
     env:
-      GOSU_HOME: ${{ github.workspace }}\dist\gosu
+      GOSU_HOME: ${{ github.workspace }}\gosu
     
     steps:
     - name: Checkout code
