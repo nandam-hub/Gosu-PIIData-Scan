@@ -18,24 +18,28 @@ jobs:
   
     - name: Setup Environment
       run: |
-        echo "Setting up Gosu environment..."
+        echo Setting up Gosu environment...
         set GOSU_HOME=%CD%\gosu
-        
+      shell: cmd
+
     - name: Build Applications
       run: |
-        echo "Building Gosu applications..."
+        echo Building Gosu applications...
         call build-app.bat
+      shell: cmd
 
     - name: Run PII Scan
       run: |
-        echo "Scanning for PII data..."
+        echo Scanning for PII data...
         call gosu.bat PIIScanner.gs "*.gs"
+      shell: cmd
 
     - name: Generate Report
       run: |
-        echo "Generating final report..."
-        echo "Scan completed at %DATE% %TIME%" >> pii-scan-report.log
+        echo Generating final report...
+        echo Scan completed at %DATE% %TIME% >> pii-scan-report.log
         type pii-scan-report.log
+      shell: cmd
 
     - name: Upload PII Scan Report
       uses: actions/upload-artifact@v4
