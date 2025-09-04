@@ -1,0 +1,42 @@
+name: PII Data Scan Pipeline
+
+on:
+  push:
+    branches: [ none ]
+  pull_request:
+    branches: [ none ]
+
+jobs:
+  pii-scan:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Build Gosu Applications
+      run: |
+        echo "Building Gosu applications..."
+        call build-app.bat
+        
+    - name: Run PII Data Scan
+      run: |
+        echo "Running PII data scan..."
+        call gosu.bat PIIScanner.gs
+        
+    - name: Upload PII Scan Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: pii-scan-report
+        path: pii-scan-report.log
+        
+    - name: Display Report Summary
+      run: |
+        echo "PII Scan Report Summary:"
+        type pii-scan-report.log
