@@ -1,0 +1,3 @@
+@echo off
+echo Running %1...
+java -cp "gosu\gosu.jar" gw.lang.launch.GosuProgram %1

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  pii-scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - ./reports:/app/reports
+    working_dir: /app
+    command: >
+      sh -c "
+        echo 'Building Gosu applications...' &&
+        ./build-app.bat &&
+        echo 'Running PII data scan...' &&
+        ./gosu.bat PIIScanner.gs &&
+        echo 'PII scan completed. Report generated.' &&
+        cp pii-scan-report.log ./reports/
+      "
+    environment:
+      - SCAN_DATE=$(date)
+      
+  report-viewer:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./reports:/usr/share/nginx/html
+    depends_on:
+      - pii-scanner

@@ -1,0 +1,3 @@
+@echo off
+set GOSU_CLASSPATH=gosu-lang\gosu-core-api\target\gosu-core-api-1-X-SNAPSHOT.jar;gosu-lang\gosu-core\target\gosu-core-1-X-SNAPSHOT.jar;%USERPROFILE%\.m2\repository\systems\manifold\manifold\2024.1.38\manifold-2024.1.38.jar;%USERPROFILE%\.m2\repository\systems\manifold\manifold-util\2024.1.38\manifold-util-2024.1.38.jar;%USERPROFILE%\.m2\repository\systems\manifold\manifold-rt\2024.1.38\manifold-rt-2024.1.38.jar;%USERPROFILE%\.m2\repository\org\gosu-lang\gosu\managed\gw-asm-all\9.7\gw-asm-all-9.7.jar
+java -cp "%GOSU_CLASSPATH%" gw.lang.Gosu %1

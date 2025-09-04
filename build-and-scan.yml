@@ -1,0 +1,39 @@
+name: Build and PII Scan
+description: Automated build and PII data scanning for Gosu applications
+
+steps:
+  - name: Setup Environment
+    action: setup
+    commands:
+      - echo "Setting up Gosu environment..."
+      - set GOSU_HOME=%CD%\gosu
+      
+  - name: Build Applications
+    action: build
+    commands:
+      - echo "Building Gosu applications..."
+      - call build-app.bat
+    outputs:
+      - dist/AddNumbers.gs
+      - dist/AddNumbersUI.gs
+      
+  - name: Run PII Scan
+    action: scan
+    commands:
+      - echo "Scanning for PII data..."
+      - call gosu.bat PIIScanner.gs
+    inputs:
+      - "*.gs"
+    outputs:
+      - pii-scan-report.log
+      
+  - name: Generate Report
+    action: report
+    commands:
+      - echo "Generating final report..."
+      - echo "Scan completed at %DATE% %TIME%" >> pii-scan-report.log
+      - type pii-scan-report.log
+    artifacts:
+      - name: pii-report
+        path: pii-scan-report.log
+        retention: 30-days
