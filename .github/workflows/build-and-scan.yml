@@ -38,7 +38,7 @@ jobs:
         type pii-scan-report.log
 
     - name: Upload PII Scan Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pii-report
         path: pii-scan-report.log
