@@ -32,7 +32,7 @@ jobs:
         call gosu.bat PIIScanner.gs
         
     - name: Upload PII Scan Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pii-scan-report
         path: pii-scan-report.log
