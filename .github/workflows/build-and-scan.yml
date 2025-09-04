@@ -6,6 +6,7 @@ on:
     branches: [ none ]
   pull_request:
     branches: [ none ]
+  workflow_dispatch:
 
 jobs:
   pii-scan:
